@@ -6,17 +6,17 @@ from concurrent.futures import ThreadPoolExecutor
 class ExecutionEngine:
     def __init__(self, multi_count):
         self.state = "IDLE"
-        self.environment = {}  # environment : source
-        self.agent = {}  # agent name : source
+        self.environment = ""  # environment : source
+        self.agent = ""  # agent name : source
         self.parts = []  # parts model
         self.bootloader = {}  # state : path
         self.multi_count = multi_count  # 동시 실행 parts 수
 
-    def append_agent_source(self, name, source):
-        self.agent[name] = source
+    def set_agent_source(self, source):
+        self.agent = source
 
-    def append_env_source(self, name, source):
-        self.environment[name] = source
+    def set_env_source(self, source):
+        self.environment = source
 
     def append_bootloader(self, name, path):
         self.bootloader[name] = path
@@ -28,10 +28,15 @@ class ExecutionEngine:
     def run_parts(self, parts):
         parts.run_parts()
         # print("test")
+        
+    def test_run_parts(self) :
+        for parts in self.parts :
+            parts.run_parts()
 
     # parts run
     def run_multi_parts(self):
         state = self.state
+
         with ThreadPoolExecutor(max_workers=self.multi_count) as executor:
             executor.map(self.run_parts, self.parts)
 
@@ -46,7 +51,8 @@ class ExecutionEngine:
         # 추상화와 request가 필요...
         # 어떻게..?
         for parts in self.parts:
-            parts.set_agent("jaiyun", self.agent["jaiyun"])
+            parts.set_agent(self.agent)
+            parts.set_environment(self.environment)
         pass
 
     def run_boot_loader(self):

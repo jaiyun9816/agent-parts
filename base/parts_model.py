@@ -13,16 +13,14 @@ class PartsModel:
         self.agent = {}
         self.environment = {}
 
-    def set_agent(self, name, source):
+    def set_agent(self, source):
         def set_rx(obj):  # agent data 구독
-            self.agent[name] = obj
-
+            self.agent = obj
         source.subscribe(set_rx)
 
-    def set_environment(self, name, source):
+    def set_environment(self, source):
         def set_rx(obj):  # environment data 구독
-            self.environment[name] = obj
-
+            self.environment = obj
         source.subscribe(set_rx)
 
     def serial_agent(self, agent_name, set_list):

@@ -5,12 +5,6 @@ class AgentManagement:
     def __init__(self):
         self.agent = {}
 
-    def set_agent_data(self, name, data):
-        self.agent[name] = data
-
-    def del_agent_data(self, name):
-        del self.agent[name]
-
     def get_source(self):
         print(self.agent)
         return create(self.object_rx)

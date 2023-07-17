@@ -12,6 +12,7 @@ class EnvironmentManagement:
         del self.environment[name]
 
     def get_source(self):
+        print(self.environment)
         return create(self.object_rx)
 
     def object_rx(self, observer, scheduler):
