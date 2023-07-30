@@ -1,1 +1,1 @@
-# kernel-teamate
+# agent-teamate
